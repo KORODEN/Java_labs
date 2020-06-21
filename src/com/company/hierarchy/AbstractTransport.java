@@ -50,8 +50,8 @@ public abstract class AbstractTransport {
         this.price = price;
     }
 
-    public void StartEngine(AbstractTransport transport){
-        System.out.println("The engine was started");
+    public String StartEngine(){
+        return "The engine was started";
     }
 
     public void ShowInfo(){

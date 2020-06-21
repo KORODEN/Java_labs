@@ -1,26 +1,27 @@
 package com.company;
 
+import com.company.decorator.AlienTransport;
 import com.company.hierarchy.*;
-import com.company.threads.ConsumerThread;
-import com.company.threads.ProducerThread;
-import com.company.threads.TransportStorage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
 
-    static ProducerThread producer;
-    static ConsumerThread consumer;
-    static TransportStorage storage;
-
     public static void main(String[] args) {
-        storage = new TransportStorage(30);
-        producer = new ProducerThread(storage);
-        consumer = new ConsumerThread(storage);
+        List<AbstractTransport> transports = new ArrayList<>();
 
-        producer.start();
-        consumer.start();
+        AbstractTransport secretTransport = new Submarine("Beauty alien submarine", 30, 5,
+                120, 1200, false);
+        secretTransport = new AlienTransport("Beauty alien submarine", 30, 5,
+                120, secretTransport);
+        transports.add(secretTransport);
+
+        for (AbstractTransport transport : transports) {
+            transport.ShowInfo();
+            System.out.println();
+        }
+
+        System.out.println(secretTransport.StartEngine());
     }
 }
